@@ -3,9 +3,9 @@
 # Algorithm comes from "Using Variants of Zero Forcing to Bound the Inertia Set of a Graph" by S. Butler, J. Grout, and H. Tracy Hall
 
 import networkx as nx
-import copy
 import itertools
 import math
+import matplotlib
 
 def force(graph: nx.Graph, blue_vertices: frozenset):
     """Returns a list of the blue vertices after performing Rule 2 on the entire graph"""
@@ -62,7 +62,7 @@ star_5 = nx.star_graph(4)
 # print(calculate_zq(star_5, 0))
 
 # print(force(star_5, [2]))
-print(calculate_zq(star_5, 1))
+# print(calculate_zq(star_5, 1))
 
 
 # for q in range(0, 8):
@@ -72,14 +72,26 @@ print(calculate_zq(star_5, 1))
 #         print(n, ":", calculate_zq(star, q))
 #     print()
 
-for q in range(0, 5):
-    print("q=" + str(q))
-    for k in range(1, 3):
-        for n in range(3, 7):
-            if k*n <= 15: # Reduce computation time
-                graph = nx.Graph()
-                for _ in range(k):
-                    star = nx.star_graph(n-1)
-                    graph = nx.disjoint_union(graph, star)
-                print('k:', k, '| n:', n, ":", calculate_zq(graph, q))
-    print()
+# for q in range(0, 5):
+#     print("q=" + str(q))
+#     for k in range(1, 3):
+#         for n in range(3, 7):
+#             if k*n <= 15: # Reduce computation time
+#                 graph = nx.Graph()
+#                 for _ in range(k):
+#                     star = nx.star_graph(n-1)
+#                     graph = nx.disjoint_union(graph, star)
+#                 print('k:', k, '| n:', n, ":", calculate_zq(graph, q))
+#     print()
+
+stars = [nx.star_graph(n-1) for n in [4, 7, 9, 10]]
+graph = nx.Graph()
+for star in stars:
+    graph = nx.disjoint_union(graph, star)
+
+pos = nx.spring_layout(graph, pos=[(0, 100), (100,100), (200, 100), (300, 100)], fixed=[0, 4, 11, 20])
+nx.draw(graph, pos)
+nx.draw_networkx_labels(graph, pos)
+matplotlib.pyplot.show()
+# print("Calculating Z_2 for S_4 U S_7 U S_9 U S_10 ...")
+# print(calculate_zq(graph, 2))
