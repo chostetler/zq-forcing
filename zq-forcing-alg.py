@@ -20,32 +20,31 @@ def force(graph: nx.Graph, blue_vertices: frozenset):
         return force(graph, new_blue_vertices)
 
 def calculate_zq(graph: nx.Graph, q):
-    # TODO: implement functionality from algorithm
+    # Notes on variables in this algorithm
+    #   V: set of all vertices in graph
+    #   U: set of blue vertices in graph 
+    #   K: set of connected components if blue is removed
+    #   J: set of connected components Blue sends to White (subset of K)
+    #   I: set of connected components White sends back to Blue (subset of J)
     V = frozenset(graph.nodes)
     cost = {}
     cost[V] = 0
     for i in range(len(V)-1, -1, -1):
-        # print("i=", i)
         for U in itertools.combinations(V, i):
             U = frozenset(U)
             if force(graph, U) != U: continue
-            # print('  U=', U)
-            # print('  forced:', force(graph, U))
             b = math.inf
             c = math.inf
             cost[U] = math.inf
             white_vertices = graph.subgraph([vertex for vertex in graph.nodes if vertex not in U])
             K = [comp for comp in nx.connected_components(white_vertices)]
-            # print("  K:", K)
 
             for J in itertools.combinations(K, q+1):
                 b_prime = -math.inf
                 for size_I in range(1, q+2):
                     for I in itertools.combinations(J, size_I):
                         I = set.union(*I)
-                        # print("    J:", J, "| I:", I)
                         induced_graph = nx.induced_subgraph(graph, set.union(set(U), I))
-                        # print("    G[U u I]:", induced_graph.nodes)
                         b_prime = max(b_prime, cost[force(graph, force(induced_graph, U))])
                 b = min(b, b_prime)
             
@@ -75,9 +74,9 @@ print(calculate_zq(star_5, 1))
 
 for q in range(0, 5):
     print("q=" + str(q))
-    for k in range(1, 5):
-        for n in range(3, 6):
-            if k*n <= 12: # Reduce computation time
+    for k in range(1, 3):
+        for n in range(3, 7):
+            if k*n <= 15: # Reduce computation time
                 graph = nx.Graph()
                 for _ in range(k):
                     star = nx.star_graph(n-1)
