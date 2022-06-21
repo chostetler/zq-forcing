@@ -84,16 +84,16 @@ star_5 = nx.star_graph(4)
 #                 print('k:', k, '| n:', n, ":", calculate_zq(graph, q))
 #     print()
 
-stars = [nx.star_graph(n-1) for n in [4, 7, 9, 10]]
+stars = [nx.star_graph(n-1) for n in [4, 7]]
 graph = nx.Graph()
 for star in stars:
     graph = nx.disjoint_union(graph, star)
 
-pos = nx.spring_layout(graph, pos=[(0, 100), (100,100), (200, 100), (300, 100)], fixed=[0, 4, 11, 20])
-nx.draw(graph, pos)
-nx.draw_networkx_labels(graph, pos)
-matplotlib.pyplot.show()
-# print("Calculating Z_2 for S_4 U S_7 U S_9 U S_10 ...")
-# print(calculate_zq(graph, 2))
+# pos = nx.spring_layout(graph, pos=[(0, 100), (100,100), (200, 100), (300, 100)], fixed=[0, 4, 11, 20])
+# nx.draw(graph, pos)
+# nx.draw_networkx_labels(graph, pos)
+# matplotlib.pyplot.show()
+print("Calculating Z_2 for S_4 U S_7 ...")
+print(calculate_zq(graph, 2))
 
 
