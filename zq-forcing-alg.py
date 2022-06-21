@@ -93,11 +93,7 @@ for star in stars:
 # nx.draw(graph, pos)
 # nx.draw_networkx_labels(graph, pos)
 # matplotlib.pyplot.show()
-<<<<<<< HEAD
 # print("Calculating Z_2 for S_4 U S_7 ...") caleb
-=======
-# print("Calculating Z_2 for S_4 U S_7 ...") Daniel 
->>>>>>> 9bb31c48bc1be1aa9201c7ac85013030530adcb2
 print(calculate_zq(graph, 2))
 
 
