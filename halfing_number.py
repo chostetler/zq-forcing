@@ -11,4 +11,4 @@ def halfing_number(n):
     return 1 + halfing_number(next)
 
 
-print([(f(x)) for x in range(1, 100)])
+# print([(halfing_number(x)) for x in range(1, 100)])
