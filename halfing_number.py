@@ -2,7 +2,8 @@ import math
 def halfing_number(n):
     """
     halfing_number refers to the number of tokens spent in a caterpillar graph when n=2 and the ends
-    are colored to color all the center vertices
+    are colored to color all the center vertices, this recurrence relation is very similar to log_2 
+    but not quite
     """
     if n<=2:
         return 0
